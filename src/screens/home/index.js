@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
     container: {
@@ -12,14 +12,20 @@ const styles = StyleSheet.create({
 });
 
 
-class HomeScreen extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>You have (undefined) friends.</Text>
-      </View>
-    );
-  }
+const HomeScreen = () => {
+  const navigation = useNavigation();
+  return (
+    <View style={styles.container}>
+      <Text>You have (undefined) friends.</Text>
+
+      <Button
+        title="Login"
+        onPress={() =>
+          navigation.navigate('Login')
+        }
+      />
+    </View>
+  );
 }
 
 

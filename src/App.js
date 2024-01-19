@@ -4,29 +4,34 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import HomeScreen from './screens/home/index';
+import Login from './screens/login';
 
 const Stack = createNativeStackNavigator();
 
 
-class App extends React.Component {
-  render() {
-    return (
-      <NavigationContainer>
+const App = () => {
+  return (
+    <NavigationContainer>
 
-        <StatusBar style="auto" />
-        
-        <Stack.Navigator screenOptions={{headerTitleAlign: 'center'}}>
+      <StatusBar style="auto" />
+      
+      <Stack.Navigator screenOptions={{headerTitleAlign: 'center' }}>
 
-          <Stack.Screen
-            name="EcoTrace"
-            component={HomeScreen}
-          />
+        <Stack.Screen
+          // options={{headerShown: false}}
+          name="EcoTrace"
+          component={HomeScreen}
+        />
 
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
+        <Stack.Screen
+          name="Login"
+          component={Login}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
 export default App
