@@ -8,6 +8,7 @@ import HomeScreen from './screens/home/index';
 
 const Stack = createNativeStackNavigator();
 
+
 class App extends React.Component {
   render() {
     return (
@@ -15,10 +16,10 @@ class App extends React.Component {
 
         <StatusBar style="auto" />
         
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerTitleAlign: 'center'}}>
 
           <Stack.Screen
-            name="Home"
+            name="EcoTrace"
             component={HomeScreen}
           />
 
