@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   listContainer: {
     maxHeight: 70,
     marginTop: 20,
+    marginBottom: 20,
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     paddingHorizontal: 20,
