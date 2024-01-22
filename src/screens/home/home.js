@@ -1,13 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import EventList from '../../components/eventList/eventList';
+import PostList from '../../components/postList/postList';
 
 const styles = StyleSheet.create({
-    container: {
+    baseContainer: {
       backgroundColor: '#fff',
-      alignItems: 'center',
+      // alignItems: 'center',
+      
     },
 });
 
@@ -15,16 +17,23 @@ const styles = StyleSheet.create({
 const HomeScreen = () => {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <View style={styles.baseContainer}>
+      <View>
+
       <EventList/>
-      <Text>Test</Text>
+      </View>
+      {/* <Text>Test</Text>
 
       <Button
         title="Login"
         onPress={() =>
           navigation.navigate('Login')
         }
-      />
+      /> */}
+      <View>
+      <PostList/>
+        
+      </View>
     </View>
   );
 }
