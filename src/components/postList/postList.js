@@ -1,21 +1,50 @@
 import { useState } from 'react';
 import { StyleSheet, FlatList, Image, Platform, Pressable } from 'react-native';
 
+import Post from './post';
+
 const PostList = () => {
-  const [events] = useState([
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
+  const [posts] = useState([
+    {
+      author: {
+        picture: require('../../../assets/favicon.png'),
+        name: "test"
+      },
+      message: {
+        picture: require('../../../assets/favicon.png'),
+        content: "test message content"
+      }
+    },
+    {
+      author: {
+        picture: require('../../../assets/favicon.png'),
+        name: "test"
+      },
+      message: {
+        picture: require('../../../assets/favicon.png'),
+        content: "test message content"
+      }
+    },
+    {
+      author: {
+        picture: require('../../../assets/favicon.png'),
+        name: "test"
+      },
+      message: {
+        picture: require('../../../assets/favicon.png'),
+        content: "test message content"
+      }
+    },
+    {
+      author: {
+        picture: require('../../../assets/favicon.png'),
+        name: "test"
+      },
+      message: {
+        picture: require('../../../assets/favicon.png'),
+        content: "test message content"
+      }
+    }
   ]);
 
   return (
@@ -23,15 +52,17 @@ const PostList = () => {
     <FlatList
       vertical
       showsVerticalScrollIndicator={Platform.OS === 'web'}
-      data={events}
+      data={posts}
       contentContainerStyle={styles.listContainer}
       style={styles.parent}
       renderItem={({ item, index }) => (
-        <Pressable
-          onPress={() => {
-          }}>
-          <Image source={item} key={index} style={styles.image} />
-        </Pressable>
+        // <Pressable
+        //   onPress={() => {
+        //   }}>
+        //   {/* <Image source={item} key={index} style={styles.image} /> */}
+        // </Pressable>
+        
+        <Post content={item} key={index}/>
       )}
     />
   );
@@ -42,9 +73,8 @@ const styles = StyleSheet.create({
     maxHeight: 500,
   },
   listContainer: {
-    backgroundColor: '#a00',
-    alignItems: 'center',
-
+    justifyContent: 'center',
+    alignItems: 'center'
     // paddingBottom: 200
     // maxHeight: 50,
     // borderTopRightRadius: 10,

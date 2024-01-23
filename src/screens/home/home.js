@@ -19,20 +19,18 @@ const HomeScreen = () => {
   return (
     <View style={styles.baseContainer}>
       <View>
-
-      <EventList/>
+        <EventList/>
       </View>
-      {/* <Text>Test</Text>
+      <Text>Test</Text>
 
       <Button
         title="Login"
         onPress={() =>
           navigation.navigate('Login')
         }
-      /> */}
+      />
       <View>
-      <PostList/>
-        
+        <PostList/>
       </View>
     </View>
   );
