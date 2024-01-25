@@ -42,7 +42,7 @@ const PostList = () => {
       },
       message: {
         picture: require('../../../assets/favicon.png'),
-        content: "test message content"
+        content: null
       }
     }
   ]);
@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     justifyContent: 'center',
-    padding: 10,
   },
   image: {
     width: 70,

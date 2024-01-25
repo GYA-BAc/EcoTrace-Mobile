@@ -9,23 +9,20 @@ const Post = ({content}) => {
         <View style={styles.parent}>
 
             <View style={styles.userInfo}>
-                <Image source={content.author.picture} style={styles.image}/>
-                <Text style={styles.userInfo.userName}>{content.author.name}</Text>
+                <Image source={content.author.picture} style={styles.userInfo.picture}/>
+                <Text style={styles.userInfo.name}>{content.author.name}</Text>
+                {/*TODO: add caption*/} 
             </View>
 
-            <View>
-                {
-                (content.message.picture !== null) ?
-                <Image source={content.message.picture} style={styles.image}/>
-                :<></>
-                }
-                
-                {
-                (content.message.content !== null) ?
-                <Text>{content.message.content}</Text>
-                :<></>
-                }
+            <View style={styles.messageContent}>
 
+              {(content.message.picture !== null) ?
+              <Image source={content.message.picture} style={styles.messageContent.image}/>
+              :<></>}
+
+              {(content.message.content !== null) ?
+              <Text style={styles.messageContent.text}>{content.message.content}</Text>
+              :<></>}
             </View>
 
         </View>
@@ -34,30 +31,46 @@ const Post = ({content}) => {
 
 const styles = StyleSheet.create({
     parent: {
-      borderRadius: 20,
-      borderColor: "#000",
-      borderWidth: 1,
       padding: 10,
       marginBottom: 20,
+      borderBottomWidth: 1,
+      borderBottomColor: "#000",
     },
+
     userInfo: {
       flex: 1,
       flexDirection: "row",
 
-      userName: {
+      picture: {
+        width: 70,
+        height: 70,
+        backgroundColor: "#aaa",
+        borderRadius: 100,
+        marginBottom: 20,
+      },
+
+      name: {
         marginLeft: 10,
         fontSize: 30
-        
       }
+    },
+    
+    messageContent: {
+      
+      image: {
+        marginBottom: 20,
+        borderRadius: 15,
+        width: '100%',
+        height: undefined,
+        maxHeight: 300,
+        aspectRatio: 1,
+      },
 
-    },
-    image: {
-      width: 70,
-      height: 70,
-      backgroundColor: "#aaa",
-      borderRadius: 20,
-      marginBottom: 20,
-    },
+      text: {
+        marginBottom: 20,
+        fontSize: 17
+      }
+    }
   });
 
 
