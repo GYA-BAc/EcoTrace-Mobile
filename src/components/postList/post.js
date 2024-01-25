@@ -5,30 +5,30 @@ import { View, Text, Image, StyleSheet} from 'react-native';
 // TODO: abstract the datatype of a Post into its own datatype
 
 const Post = ({content}) => {
-    return (
-        <View style={styles.parent}>
+  return (
+    <View style={styles.parent}>
 
-            <View style={styles.userInfo}>
-                <Image source={content.author.picture} style={styles.userInfo.picture}/>
-                <Text style={styles.userInfo.name}>{content.author.name}</Text>
-                {/*TODO: add caption*/} 
-            </View>
+      <View style={styles.userInfo}>
+          <Image source={content.author.picture} style={styles.userInfo.picture}/>
+          <Text style={styles.userInfo.name}>{content.author.name}</Text>
+          {/*TODO: add caption*/} 
+      </View>
 
-            <View style={styles.messageContent}>
+      <View style={styles.messageContent}>
 
-              {(content.message.image !== null) ?
-              <View style={styles.messageContent.imageView}>
-                <Image source={content.message.image} style={styles.messageContent.imageView.image}/>
-              </View>
-              :<></>}
-
-              {(content.message.text !== null) ?
-              <Text style={styles.messageContent.text}>{content.message.text}</Text>
-              :<></>}
-            </View>
-
+        {(content.message.image !== null) ?
+        <View style={styles.messageContent.imageView}>
+          <Image source={content.message.image} style={styles.messageContent.imageView.image}/>
         </View>
-    )
+        :<></>}
+
+        {(content.message.text !== null) ?
+        <Text style={styles.messageContent.text}>{content.message.text}</Text>
+        :<></>}
+      </View>
+
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
