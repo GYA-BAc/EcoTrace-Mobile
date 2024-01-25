@@ -12,7 +12,7 @@ const PostList = () => {
       },
       message: {
         picture: require('../../../assets/favicon.png'),
-        content: "test message content"
+        content: "test message content1"
       }
     },
     {
@@ -74,16 +74,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     justifyContent: 'center',
-    alignItems: 'center'
-    // paddingBottom: 200
-    // maxHeight: 50,
-    // borderTopRightRadius: 10,
-    // borderTopLeftRadius: 10,
-    // paddingHorizontal: 20,
-    // flexDirection: 'column',
-    // flexGrow: 0
-    // alignItems: 'top',
-    // justifyContent: 'space-between',
+    padding: 10,
   },
   image: {
     width: 70,

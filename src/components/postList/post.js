@@ -4,18 +4,18 @@ import { View, Text, Image, StyleSheet} from 'react-native';
 
 // TODO: abstract the datatype of a Post into its own datatype
 
-const Post = (content) => {
+const Post = ({content}) => {
     return (
         <View style={styles.parent}>
 
-            <View>
-                <Image source={content.content.author.picture} style={styles.image}/>
-                <Text>{content.content.author.name}</Text>
+            <View style={styles.userInfo}>
+                <Image source={content.author.picture} style={styles.image}/>
+                <Text style={styles.userInfo.userName}>{content.author.name}</Text>
             </View>
 
             <View>
-                <Image source={content.content.message.picture} style={styles.image}/>
-                <Text>{content.content.message.content}</Text>
+                <Image source={content.message.picture} style={styles.image}/>
+                <Text>{content.message.content}</Text>
             </View>
 
         </View>
@@ -24,20 +24,22 @@ const Post = (content) => {
 
 const styles = StyleSheet.create({
     parent: {
-    //   backgroundColor: "#aaa"
+      borderRadius: 20,
+      borderColor: "#000",
+      borderWidth: 1,
+      padding: 10,
+      marginBottom: 20,
     },
-    listContainer: {
-      alignItems: 'center',
-  
-      // paddingBottom: 200
-      // maxHeight: 50,
-      // borderTopRightRadius: 10,
-      // borderTopLeftRadius: 10,
-      // paddingHorizontal: 20,
-      // flexDirection: 'column',
-      // flexGrow: 0
-      // alignItems: 'top',
-      // justifyContent: 'space-between',
+    userInfo: {
+      flex: 1,
+      flexDirection: "row",
+
+      userName: {
+        marginLeft: 10,
+        fontSize: 30
+        
+      }
+
     },
     image: {
       width: 70,
