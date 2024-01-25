@@ -11,7 +11,7 @@ const PostList = () => {
         name: "test"
       },
       message: {
-        picture: require('../../../assets/favicon.png'),
+        image: require('../../../assets/favicon.png'),
         content: "test message content1"
       }
     },
@@ -21,7 +21,7 @@ const PostList = () => {
         name: "test"
       },
       message: {
-        picture: require('../../../assets/favicon.png'),
+        image: require('../../../assets/favicon.png'),
         content: "test message content"
       }
     },
@@ -31,7 +31,7 @@ const PostList = () => {
         name: "test"
       },
       message: {
-        picture: null,
+        image: null,
         content: "test message content"
       }
     },
@@ -41,7 +41,7 @@ const PostList = () => {
         name: "test"
       },
       message: {
-        picture: require('../../../assets/favicon.png'),
+        image: require('../../../assets/favicon.png'),
         content: null
       }
     }

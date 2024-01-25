@@ -18,7 +18,7 @@ const Post = ({content}) => {
 
               {(content.message.picture !== null) ?
               <View style={styles.messageContent.imageView}>
-                <Image source={content.message.picture} style={styles.messageContent.imageView.image}/>
+                <Image source={content.message.image} style={styles.messageContent.imageView.image}/>
               </View>
               :<></>}
 
