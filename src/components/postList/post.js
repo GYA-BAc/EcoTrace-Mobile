@@ -16,14 +16,14 @@ const Post = ({content}) => {
 
             <View style={styles.messageContent}>
 
-              {(content.message.picture !== null) ?
+              {(content.message.image !== null) ?
               <View style={styles.messageContent.imageView}>
                 <Image source={content.message.image} style={styles.messageContent.imageView.image}/>
               </View>
               :<></>}
 
-              {(content.message.content !== null) ?
-              <Text style={styles.messageContent.text}>{content.message.content}</Text>
+              {(content.message.text !== null) ?
+              <Text style={styles.messageContent.text}>{content.message.text}</Text>
               :<></>}
             </View>
 

@@ -12,7 +12,7 @@ const PostList = () => {
       },
       message: {
         image: require('../../../assets/favicon.png'),
-        content: "test message content1"
+        text: "test message content1"
       }
     },
     {
@@ -22,7 +22,7 @@ const PostList = () => {
       },
       message: {
         image: require('../../../assets/favicon.png'),
-        content: "test message content"
+        text: "test message content"
       }
     },
     {
@@ -32,7 +32,7 @@ const PostList = () => {
       },
       message: {
         image: null,
-        content: "test message content"
+        text: "test message content"
       }
     },
     {
@@ -42,7 +42,7 @@ const PostList = () => {
       },
       message: {
         image: require('../../../assets/favicon.png'),
-        content: null
+        text: null
       }
     }
   ]);
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     maxHeight: 500,
   },
   listContainer: {
-    justifyContent: 'center',
+    justifytext: 'center',
   },
   image: {
     width: 70,
