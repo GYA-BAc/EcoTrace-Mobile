@@ -17,7 +17,9 @@ const Post = ({content}) => {
             <View style={styles.messageContent}>
 
               {(content.message.picture !== null) ?
-              <Image source={content.message.picture} style={styles.messageContent.image}/>
+              <View style={styles.messageContent.imageView}>
+                <Image source={content.message.picture} style={styles.messageContent.imageView.image}/>
+              </View>
               :<></>}
 
               {(content.message.content !== null) ?
@@ -56,17 +58,24 @@ const styles = StyleSheet.create({
     },
     
     messageContent: {
+
+      imageView: {
+        alignItems: 'center',
       
-      image: {
-        marginBottom: 20,
-        borderRadius: 15,
-        width: '100%',
-        height: undefined,
-        maxHeight: 300,
-        aspectRatio: 1,
+        image: {
+          marginBottom: 20,
+          borderRadius: 15,
+          width: '100%',
+          height: undefined,
+          maxHeight: 300,
+          aspectRatio: 1,
+        },
       },
 
+      
+
       text: {
+
         marginBottom: 20,
         fontSize: 17
       }
