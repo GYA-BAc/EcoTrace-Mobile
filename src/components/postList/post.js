@@ -14,8 +14,18 @@ const Post = ({content}) => {
             </View>
 
             <View>
+                {
+                (content.message.picture !== null) ?
                 <Image source={content.message.picture} style={styles.image}/>
+                :<></>
+                }
+                
+                {
+                (content.message.content !== null) ?
                 <Text>{content.message.content}</Text>
+                :<></>
+                }
+
             </View>
 
         </View>

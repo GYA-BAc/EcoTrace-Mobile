@@ -31,7 +31,7 @@ const PostList = () => {
         name: "test"
       },
       message: {
-        picture: require('../../../assets/favicon.png'),
+        picture: null,
         content: "test message content"
       }
     },
