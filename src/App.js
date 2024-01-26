@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/home/home';
 import Login from './screens/login/login';
 import EventView from './screens/event/event';
+import ProfileView from './screens/profile/userProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,8 +31,13 @@ const App = () => {
           component={Login}
         />
         <Stack.Screen
-          name="test"
+          name="Event"
           component={EventView}
+          options={({ route }) => ({ title: route.params.test })}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileView}
           options={({ route }) => ({ title: route.params.test })}
         />
 

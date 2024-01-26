@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
 });
 
 
-const EventView = ({route}) => {
+const ProfileView = ({route}) => {
 //   const navigation = useNavigation();
   // console.log(route)
 
@@ -21,4 +21,4 @@ const EventView = ({route}) => {
 }
 
 
-export default EventView;
+export default ProfileView;
