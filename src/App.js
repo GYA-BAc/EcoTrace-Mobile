@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './screens/home/home';
 import Login from './screens/login/login';
+import EventView from './screens/event/event';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,11 +25,16 @@ const App = () => {
           name="EcoTrace"
           component={HomeScreen}
         />
-
         <Stack.Screen
           name="Login"
           component={Login}
         />
+        <Stack.Screen
+          name="test"
+          component={EventView}
+          options={({ route }) => ({ title: route.params.test })}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
