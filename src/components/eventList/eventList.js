@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, FlatList, Image, Platform, Pressable } from 'react-native';
+import { StyleSheet, FlatList, Image, Platform, Pressable, View } from 'react-native';
 
 const EventList = () => {
   const [events] = useState([
@@ -12,27 +12,30 @@ const EventList = () => {
   ]);
 
   return (
-    <FlatList
-      horizontal
-      showsHorizontalScrollIndicator={Platform.OS === 'web'}
-      data={events}
-      contentContainerStyle={styles.listContainer}
-      renderItem={({ item, index }) => (
-        <Pressable
-          onPress={() => {
-          }}>
-          <Image source={item} key={index} style={styles.image} />
-        </Pressable>
-      )}
-    />
-  );
+    <View style={styles.parentContainer}>
+      <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={Platform.OS === 'web'}
+          data={events}
+          contentContainerStyle={styles.listContainer}
+          renderItem={({ item, index }) => (
+            <Pressable
+              onPress={() => {
+              }}>
+              <Image source={item} key={index} style={styles.image} />
+            </Pressable>
+          )}
+        />
+    </View>
+    );
 }
 
 const styles = StyleSheet.create({
+  parentContainer: {
+    backgroundColor: "#ddd",
+  },
   listContainer: {
     maxHeight: 70,
-    marginTop: 20,
-    marginBottom: 20,
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     paddingHorizontal: 20,

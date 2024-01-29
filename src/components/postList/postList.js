@@ -70,7 +70,7 @@ const PostList = () => {
 
 const styles = StyleSheet.create({
   parent: {
-    maxHeight: 500,
+    maxHeight: 600,
   },
   listContainer: {
     justifytext: 'center',
