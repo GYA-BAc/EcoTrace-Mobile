@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 const styles = StyleSheet.create({
     baseContainer: {
       backgroundColor: '#fff',
-      flexGrow: 1,
+      height: "100%"
 
     },
 });
@@ -39,7 +39,9 @@ const CameraScreen = () => {
       {
         true ? (
           <Camera
-            style={{flex: 1}}
+            //TODO fix camera preview ratios  
+            // https://stackoverflow.com/questions/58634905/camera-preview-in-expo-is-distorted
+            style={{flex: 1, maxHeight: "70%"}}
             type={CameraType.back}
             // ref={(r) => {camera = r}}
           > 
