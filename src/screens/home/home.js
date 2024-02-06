@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   return (
     <View style={styles.baseContainer}>
       <EventList/>

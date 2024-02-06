@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 
 const styles = StyleSheet.create({
@@ -24,6 +25,9 @@ const styles = StyleSheet.create({
 
 
 const BottomMenu = () => {
+  const navigation = useNavigation();
+
+
   return (
     <View style={styles.parentContainer}>
       <TouchableOpacity
@@ -37,7 +41,7 @@ const BottomMenu = () => {
       <TouchableOpacity
         style={styles.cameraButton}
         onPress={() => {
-          alert('Picture');
+          navigation.navigate("Camera")
         }}>
         {/* <Text style={{backgroundColor: "#a00"}}>Camera</Text> */}
         <ImageBackground 

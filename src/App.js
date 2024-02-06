@@ -1,7 +1,6 @@
 // import 'react-native-gesture-handler';
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -9,6 +8,7 @@ import HomeScreen from './screens/home/home';
 import Login from './screens/login/login';
 import EventView from './screens/event/event';
 import ProfileView from './screens/profile/userProfile';
+import CameraScreen from './screens/camera/camera';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +39,11 @@ const App = () => {
           name="Profile"
           component={ProfileView}
           options={({ route }) => ({ title: route.params.test })}
+        />
+        <Stack.Screen
+          name="Camera"
+          options={{headerShown: false}}
+          component={CameraScreen}
         />
 
       </Stack.Navigator>
