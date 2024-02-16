@@ -46,12 +46,8 @@ const CameraScreen = () => {
   const screenRatio = height / width;
   const [isRatioSet, setIsRatioSet] =  useState(false);
 
-  // set the camera ratio and padding.
-  // this code assumes a portrait mode screen
   const prepareRatio = async () => {
-    console.log("doing")
     let desiredRatio = '4:3';  // Start with the system default
-    // This issue only affects Android
     if (Platform.OS === 'android') {
       const ratios = await camera.getSupportedRatiosAsync();
 
@@ -101,13 +97,8 @@ const CameraScreen = () => {
   return (
     <View style={styles.baseContainer}>
       {
-        true ? (
+        startCamera ? (
           <Camera
-            //TODO fix camera preview ratios  
-            // https://stackoverflow.com/questions/58634905/camera-preview-in-expo-is-distorted
-            // style={styles.cameraPreview}
-            // type={CameraType.back}
-            // // ref={(r) => {camera = r}}
             style={[styles.cameraPreview, {marginTop: imagePadding, marginBottom: imagePadding}]}
             type={CameraType.back}
             onCameraReady={setCameraReady}
