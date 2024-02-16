@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
   },
   cameraPreview: {
     flex: 1,
+  },
+  cameraInactive: {
+    opacity: 0,
   }
 });
 
@@ -36,12 +39,11 @@ const CameraScreen = () => {
   useEffect(() => {
     __startCamera(navigation)
   }, [])
-
   const [camera, setCamera] = useState(null);
 
   // Screen Ratio and image padding
   const [imagePadding, setImagePadding] = useState(0);
-  const [ratio, setRatio] = useState('4:3');  // default is 4:3
+  const [ratio, setRatio] = useState('4:3'); 
   const { height, width } = Dimensions.get('window');
   const screenRatio = height / width;
   const [isRatioSet, setIsRatioSet] =  useState(false);
@@ -49,10 +51,9 @@ const CameraScreen = () => {
   const prepareRatio = async () => {
     let desiredRatio = '4:3';  // Start with the system default
     if (Platform.OS === 'android') {
+      setTimeout(async () => {}, 0) // for some reason, needed to make next line work
       const ratios = await camera.getSupportedRatiosAsync();
 
-      // Calculate the width/height of each of the supported camera ratios
-      // These width/height are measured in landscape mode
       // find the ratio that is closest to the screen ratio without going over
       let distances = {};
       let realRatios = {};
@@ -61,7 +62,6 @@ const CameraScreen = () => {
         const parts = ratio.split(':');
         const realRatio = parseInt(parts[0]) / parseInt(parts[1]);
         realRatios[ratio] = realRatio;
-        // ratio can't be taller than screen, so we don't want an abs()
         const distance = screenRatio - realRatio; 
         distances[ratio] = distance;
         if (minDistance == null) {
@@ -78,16 +78,13 @@ const CameraScreen = () => {
       const remainder = Math.floor(
         (height - realRatios[desiredRatio] * width) / 2
       );
-      // set the preview padding and preview ratio
       setImagePadding(remainder);
       setRatio(desiredRatio);
-      // Set a flag so we don't do this 
-      // calculation each time the screen refreshes
       setIsRatioSet(true);
     }
   };
 
-  const setCameraReady = async() => {
+  const setCameraReady = async () => {
     if (!isRatioSet) {
       await prepareRatio();
     }
@@ -99,7 +96,13 @@ const CameraScreen = () => {
       {
         startCamera ? (
           <Camera
-            style={[styles.cameraPreview, {marginTop: imagePadding, marginBottom: imagePadding}]}
+            style={
+              (isRatioSet ?
+              [styles.cameraPreview, {marginTop: imagePadding, marginBottom: imagePadding}]
+              :
+              styles.cameraInactive
+              )
+            }
             type={CameraType.back}
             onCameraReady={setCameraReady}
             ratio={ratio}
