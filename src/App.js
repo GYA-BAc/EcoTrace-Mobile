@@ -19,7 +19,10 @@ const App = () => {
 
       <StatusBar style="auto" />
       
-      <Stack.Navigator screenOptions={{headerTitleAlign: 'center' }}>
+      <Stack.Navigator 
+        screenOptions={{headerTitleAlign: 'center' }}
+        initialRouteName='Login'
+      >
 
         <Stack.Screen
           // options={{headerShown: false}}
