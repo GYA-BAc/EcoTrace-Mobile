@@ -1,14 +1,14 @@
 import { React, useState, useEffect, useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { 
   StyleSheet,
-   Text,
-   View,
-   SafeAreaView,
-   TextInput,
-   TouchableOpacity ,
-   Animated,
+  Text,
+  View,
+  SafeAreaView,
+  TextInput,
+  TouchableOpacity ,
+  Animated,
 } from 'react-native';
 
 
@@ -137,10 +137,10 @@ const Login = () => {
         return res.json()
       }
     ).then(
-      async (data) => {
-        // console.log(data.content.id)
+      (data) => {
+        // console.log(AsyncStorage)
         try {
-          await AsyncStorage.setItem('currentUserID', data.content.id)
+          AsyncStorage.setItem('currentUserID', data.content.id.toString())
         } catch (error) {
           // TODO: add error case if localstorage fails
           console.log(data)

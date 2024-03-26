@@ -9,6 +9,7 @@ import Login from './screens/login/login';
 import EventView from './screens/event/event';
 import ProfileView from './screens/profile/userProfile';
 import CameraScreen from './screens/camera/camera';
+import Header from './components/header/header';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ const App = () => {
           // options={{headerShown: false}}
           name="EcoTrace"
           component={HomeScreen}
+          options={{ headerTitle: (props) => <Header {...props} /> }}
         />
         <Stack.Screen
           name="Login"
