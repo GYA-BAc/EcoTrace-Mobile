@@ -1,6 +1,14 @@
 import { React, useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { 
+  StyleSheet,
+   Text,
+   View,
+   SafeAreaView,
+   TextInput,
+   TouchableOpacity ,
+   Animated
+} from 'react-native';
 
 
 const styles = StyleSheet.create({
@@ -59,6 +67,7 @@ const Login = () => {
 
   const passwordInput = useRef(null)
   const [password, setPassword] = useState('')
+  const [passwordShake] = useState(new Animated.Value(0))
 
   useEffect( () => {
     // fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/login`, {
@@ -101,7 +110,23 @@ const Login = () => {
     // )
   }, [])
 
+  const startShake = (transformRef) => {
+
+    // element.current.setNativeProps({
+    //   style: 
+    // })
+    Animated.sequence([
+      Animated.timing(transformRef, { toValue: 10, duration: 100, useNativeDriver: true }),
+      Animated.timing(transformRef, { toValue: -10, duration: 100, useNativeDriver: true }),
+      Animated.timing(transformRef, { toValue: 10, duration: 100, useNativeDriver: true }),
+      Animated.timing(transformRef, { toValue: 0, duration: 100, useNativeDriver: true })
+    ]).start();
+  }
+
+
   const incorrectLogin = () => {
+    // passwordInput.current.setNativeProps({style: {transform: [{translateX: 5}]}})
+    startShake(passwordShake)
     passwordInput.current.clear()
   }
 
@@ -151,18 +176,21 @@ const Login = () => {
             autoCorrect={false}
             autoCapitalize='none'
             onChangeText={text => setUsername(text)}
-            style={styles.textInput} 
+            style={styles.textInput}
           />
-
-          <TextInput 
-            placeholder="Password"
-            ref={passwordInput} 
-            autoCorrect={false}
-            autoCapitalize='none'
-            secureTextEntry={true} 
-            onChangeText={text => setPassword(text)}
-            style={styles.textInput} 
-          />
+          
+          <Animated.View style={{width: "100%", transform: [{translateX: passwordShake}]}}>
+            <TextInput 
+              placeholder="Password"
+              ref={passwordInput} 
+              autoCorrect={false}
+              autoCapitalize='none'
+              secureTextEntry={true} 
+              onChangeText={text => setPassword(text)}
+              style={styles.textInput}
+            />
+          </Animated.View>
+          
         
         </SafeAreaView>
 
@@ -177,10 +205,9 @@ const Login = () => {
           </TouchableOpacity>
 
         </View>
-
       </View>
 
-      
+      <></>
 
     </View>
   );
