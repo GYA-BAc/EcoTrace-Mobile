@@ -18,27 +18,31 @@ const styles = StyleSheet.create({
 
 
 const Header = () => {
-    return (
-        <View style={styles.container}>
-          
-        <TouchableOpacity
-          onPress={() => {
-            alert('Left');
-          }}>
-          <Text>Left</Text>
-        </TouchableOpacity>
 
-        <Text style={styles.title}>
-          EcoTrace
-        </Text>
 
-        <TouchableOpacity
-          onPress={() => {
-            alert('Right');
-          }}>
-          <Text>Right</Text>
-        </TouchableOpacity>
-      </View>
+
+  return (
+    <View style={styles.container}>
+        
+      <TouchableOpacity
+        onPress={() => {
+          alert('Left');
+        }}>
+        <Text>Left</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.title}>
+        EcoTrace
+      </Text>
+      
+      <TouchableOpacity
+        onPress={() => {
+          alert('Right');
+        }}>
+        <Text>Right</Text>
+      </TouchableOpacity>
+
+    </View>
     )
 }
 
