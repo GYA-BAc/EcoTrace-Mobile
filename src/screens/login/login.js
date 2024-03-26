@@ -168,7 +168,7 @@ const Login = () => {
     }).then(
       (res) => {
         (res.ok) ? correctLogin(): incorrectLogin()
-          // console.log(res.status)
+        // console.log(res.status)
           
         // console.log(res.headers)
         // return res.json()
