@@ -170,16 +170,18 @@ const Login = () => {
 
         <SafeAreaView style={styles.credentials}>
 
-          <TextInput 
-            placeholder="Username"
-            ref={usernameInput} 
-            autoCorrect={false}
-            autoCapitalize='none'
-            onChangeText={text => setUsername(text)}
-            style={styles.textInput}
-          />
           
+
           <Animated.View style={{width: "100%", transform: [{translateX: passwordShake}]}}>
+            <TextInput 
+              placeholder="Username"
+              ref={usernameInput} 
+              autoCorrect={false}
+              autoCapitalize='none'
+              onChangeText={text => setUsername(text)}
+              style={styles.textInput}
+            />
+            
             <TextInput 
               placeholder="Password"
               ref={passwordInput} 
