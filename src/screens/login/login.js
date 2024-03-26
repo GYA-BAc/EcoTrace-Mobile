@@ -125,6 +125,30 @@ const Login = () => {
   }
 
   const correctLogin = () => {
+    
+    fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/fetchUserData`).then(
+      (res) => {
+
+        if (!res.ok) {
+          // TODO: add bad case where server fails
+          console.log(res.status)
+          throw "ServerError"
+        }
+        return res.json()
+      }
+    ).then(
+      async (data) => {
+        // console.log(data.content.id)
+        try {
+          await AsyncStorage.setItem('currentUserID', data.content.id)
+        } catch (error) {
+          // TODO: add error case if localstorage fails
+          console.log(data)
+          throw "ClientError: could not save currentUserID"
+        }
+      }
+    )
+
     usernameInput.current.clear()
     passwordInput.current.clear()
     navigation.navigate("EcoTrace")
@@ -132,21 +156,6 @@ const Login = () => {
       index: 0,
       routes: [{name: "EcoTrace"}]
     })
-    fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/fetchUserData`).then(
-      (res) => {
-
-        if (!res.ok) {
-          console.log(res.status)
-          return
-        }
-        return res.json()
-      }
-    ).then(
-      data => {
-        // if (data)
-        console.log(data)
-      }
-    )
   }
 
   const attemptLogin = () => {
