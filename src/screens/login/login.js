@@ -137,10 +137,10 @@ const Login = () => {
         return res.json()
       }
     ).then(
-      (data) => {
+      async (data) => {
         // console.log(AsyncStorage)
         try {
-          AsyncStorage.setItem('currentUserID', data.content.id.toString())
+          await AsyncStorage.setItem('currentUserID', data.content.id.toString())
         } catch (error) {
           // TODO: add error case if localstorage fails
           console.log(data)
