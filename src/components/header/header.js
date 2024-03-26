@@ -4,36 +4,42 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        height: 50,
+      width: "90%",
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      height: 50,
     },
+    title: {
+      fontSize: 35,
+      fontWeight: "bold"
+    }
 });
 
 
-class Header extends React.Component {
-  render() {
+const Header = () => {
     return (
-        <View
-        style={styles.container}>
+        <View style={styles.container}>
+          
         <TouchableOpacity
-          style={{ padding: 10 }}
           onPress={() => {
             alert('Left');
           }}>
           <Text>Left</Text>
         </TouchableOpacity>
+
+        <Text style={styles.title}>
+          EcoTrace
+        </Text>
+
         <TouchableOpacity
-          style={{ padding: 10 }}
           onPress={() => {
             alert('Right');
           }}>
           <Text>Right</Text>
         </TouchableOpacity>
       </View>
-    );
-  }
+    )
 }
 
 
