@@ -1,5 +1,6 @@
 import { React, useState, useEffect, useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
 import { 
   StyleSheet,
    Text,
@@ -7,7 +8,7 @@ import {
    SafeAreaView,
    TextInput,
    TouchableOpacity ,
-   Animated
+   Animated,
 } from 'react-native';
 
 
@@ -59,8 +60,6 @@ const styles = StyleSheet.create({
 const Login = () => {
 
   const navigation = useNavigation();
-
-  const [data, setData] = useState([{}])
 
   const usernameInput = useRef(null)
   const [username, setUsername] = useState('')
@@ -135,6 +134,7 @@ const Login = () => {
     })
     fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/fetchUserData`).then(
       (res) => {
+
         if (!res.ok) {
           console.log(res.status)
           return
@@ -143,7 +143,7 @@ const Login = () => {
       }
     ).then(
       data => {
-        setData(data)
+        // if (data)
         console.log(data)
       }
     )
@@ -158,21 +158,19 @@ const Login = () => {
       body: JSON.stringify({'username': username, 'password': password})
     }).then(
       (res) => {
-        if (!res.ok) {
+        (res.ok) ? correctLogin(): incorrectLogin()
           // console.log(res.status)
-          incorrectLogin()
-          return
-        }
-        console.log(res.headers)
-        correctLogin()
-        return res.json()
-      }
-    ).then(
-      data => {
-        setData(data)
-        console.log(data)
+          
+        // console.log(res.headers)
+        // return res.json()
       }
     )
+    // .then(
+    //   data => {
+    //     if (data === undefined) return
+    //     console.log(data)
+    //   }
+    // )
   }
 
 
