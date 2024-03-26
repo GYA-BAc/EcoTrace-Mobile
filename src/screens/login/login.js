@@ -111,10 +111,6 @@ const Login = () => {
   }, [])
 
   const startShake = (transformRef) => {
-
-    // element.current.setNativeProps({
-    //   style: 
-    // })
     Animated.sequence([
       Animated.timing(transformRef, { toValue: 10, duration: 100, useNativeDriver: true }),
       Animated.timing(transformRef, { toValue: -10, duration: 100, useNativeDriver: true }),
@@ -125,7 +121,6 @@ const Login = () => {
 
 
   const incorrectLogin = () => {
-    // passwordInput.current.setNativeProps({style: {transform: [{translateX: 5}]}})
     startShake(passwordShake)
     passwordInput.current.clear()
   }
@@ -134,6 +129,24 @@ const Login = () => {
     usernameInput.current.clear()
     passwordInput.current.clear()
     navigation.navigate("EcoTrace")
+    navigation.reset({
+      index: 0,
+      routes: [{name: "EcoTrace"}]
+    })
+    fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/fetchUserData`).then(
+      (res) => {
+        if (!res.ok) {
+          console.log(res.status)
+          return
+        }
+        return res.json()
+      }
+    ).then(
+      data => {
+        setData(data)
+        console.log(data)
+      }
+    )
   }
 
   const attemptLogin = () => {
@@ -146,10 +159,11 @@ const Login = () => {
     }).then(
       (res) => {
         if (!res.ok) {
-          console.log(res.status)
+          // console.log(res.status)
           incorrectLogin()
           return
         }
+        console.log(res.headers)
         correctLogin()
         return res.json()
       }
