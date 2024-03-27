@@ -8,8 +8,9 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity ,
-  Animated,
+  Animated
 } from 'react-native';
+import { startShake, fetchWithTimeout } from '../../Utils';
 
 
 const styles = StyleSheet.create({
@@ -109,14 +110,7 @@ const Login = () => {
     // )
   }, [])
 
-  const startShake = (transformRef) => {
-    Animated.sequence([
-      Animated.timing(transformRef, { toValue: 10, duration: 100, useNativeDriver: true }),
-      Animated.timing(transformRef, { toValue: -10, duration: 100, useNativeDriver: true }),
-      Animated.timing(transformRef, { toValue: 10, duration: 100, useNativeDriver: true }),
-      Animated.timing(transformRef, { toValue: 0, duration: 100, useNativeDriver: true })
-    ]).start();
-  }
+  
 
 
   const incorrectLogin = () => {
@@ -126,7 +120,7 @@ const Login = () => {
 
   const correctLogin = () => {
     
-    fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/fetchUserData`).then(
+    fetchWithTimeout(`${process.env.EXPO_PUBLIC_API_URL}/auth/fetchUserData`).then(
       (res) => {
 
         if (!res.ok) {
@@ -161,7 +155,7 @@ const Login = () => {
   const attemptLogin = () => {
     // console.log(username)
     // usernameInput.current.clear()
-    fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/login`, {
+    fetchWithTimeout(`${process.env.EXPO_PUBLIC_API_URL}/auth/login`, {
       method: "POST",
       headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}, 
       body: JSON.stringify({'username': username, 'password': password})
@@ -172,6 +166,11 @@ const Login = () => {
           
         // console.log(res.headers)
         // return res.json()
+      }
+    ).catch(
+      // failed to login due to timeout
+      () => {
+        console.log("hi")
       }
     )
     // .then(
