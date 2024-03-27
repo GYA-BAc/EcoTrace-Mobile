@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './screens/home/home';
 import Login from './screens/login/login';
-import EventView from './screens/event/event';
+import GroupView from './screens/group/group';
 import ProfileView from './screens/profile/userProfile';
 import CameraScreen from './screens/camera/camera';
 import Header from './components/header/header';
@@ -36,9 +36,9 @@ const App = () => {
           component={Login}
         />
         <Stack.Screen
-          name="Event"
-          component={EventView}
-          options={({ route }) => ({ title: route.params.test })}
+          name="Group"
+          component={GroupView}
+          options={({ route }) => ({ id: route.params.groupID })}
         />
         <Stack.Screen
           name="Profile"

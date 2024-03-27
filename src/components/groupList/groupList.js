@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { StyleSheet, FlatList, Image, Platform, Pressable, View } from 'react-native';
+import { StyleSheet, FlatList, Image, Platform, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 const EventList = () => {
   const [events] = useState([
@@ -11,6 +13,8 @@ const EventList = () => {
     require('../../../assets/favicon.png'),
   ]);
 
+  const navigation = useNavigation()
+
   return (
     <View style={styles.parentContainer}>
       <FlatList
@@ -19,11 +23,12 @@ const EventList = () => {
           data={events}
           contentContainerStyle={styles.listContainer}
           renderItem={({ item, index }) => (
-            <Pressable
+            <TouchableOpacity
               onPress={() => {
+                navigation.navigate("Group", {id: 1})
               }}>
               <Image source={item} key={index} style={styles.image} />
-            </Pressable>
+            </TouchableOpacity>
           )}
         />
     </View>

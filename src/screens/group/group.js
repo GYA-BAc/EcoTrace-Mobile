@@ -1,5 +1,6 @@
-import React from 'react';
+import { React, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
     baseContainer: {
@@ -9,8 +10,15 @@ const styles = StyleSheet.create({
 });
 
 
-const EventView = ({route}) => {
-//   const navigation = useNavigation();
+const GroupView = ({route}) => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: "hi"
+    })
+  }, [])
+  
   // console.log(route)
 
   return (
@@ -21,4 +29,4 @@ const EventView = ({route}) => {
 }
 
 
-export default EventView;
+export default GroupView;

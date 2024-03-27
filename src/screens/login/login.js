@@ -110,9 +110,6 @@ const Login = () => {
     // )
   }, [])
 
-  
-
-
   const incorrectLogin = () => {
     startShake(passwordShake)
     passwordInput.current.clear()
@@ -120,7 +117,7 @@ const Login = () => {
 
   const correctLogin = () => {
     
-    fetchWithTimeout(`${process.env.EXPO_PUBLIC_API_URL}/auth/fetchUserData`).then(
+    fetchWithTimeout(`${process.env.EXPO_PUBLIC_API_URL}/auth/fetchUserData`, {headers: {}}).then(
       (res) => {
 
         if (!res.ok) {
@@ -140,16 +137,21 @@ const Login = () => {
           console.log(data)
           throw "ClientError: could not save currentUserID"
         }
+        usernameInput.current.clear()
+        passwordInput.current.clear()
+        navigation.navigate("EcoTrace")
+        navigation.reset({
+          index: 0,
+          routes: [{name: "EcoTrace"}]
+        })
+      }
+    ).catch(
+      () => {
+        alert("Failed to fetch user data. Please try logging in again")
       }
     )
 
-    usernameInput.current.clear()
-    passwordInput.current.clear()
-    navigation.navigate("EcoTrace")
-    navigation.reset({
-      index: 0,
-      routes: [{name: "EcoTrace"}]
-    })
+    
   }
 
   const attemptLogin = () => {
@@ -158,7 +160,8 @@ const Login = () => {
     fetchWithTimeout(`${process.env.EXPO_PUBLIC_API_URL}/auth/login`, {
       method: "POST",
       headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}, 
-      body: JSON.stringify({'username': username, 'password': password})
+      body: JSON.stringify({'username': username, 'password': password}),
+      timeout: 3000
     }).then(
       (res) => {
         (res.ok) ? correctLogin(): incorrectLogin()
@@ -170,15 +173,9 @@ const Login = () => {
     ).catch(
       // failed to login due to timeout
       () => {
-        console.log("hi")
+        alert("Could not connect to our servers. Check your internet connection")
       }
     )
-    // .then(
-    //   data => {
-    //     if (data === undefined) return
-    //     console.log(data)
-    //   }
-    // )
   }
 
 
