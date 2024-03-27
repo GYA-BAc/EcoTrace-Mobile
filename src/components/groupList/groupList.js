@@ -3,8 +3,8 @@ import { StyleSheet, FlatList, Image, Platform, TouchableOpacity, View } from 'r
 import { useNavigation } from '@react-navigation/native';
 
 
-const EventList = () => {
-  const [events] = useState([
+const GroupList = () => {
+  const [groups] = useState([
     require('../../../assets/favicon.png'),
     require('../../../assets/favicon.png'),
     require('../../../assets/favicon.png'),
@@ -20,12 +20,12 @@ const EventList = () => {
       <FlatList
           horizontal
           showsHorizontalScrollIndicator={Platform.OS === 'web'}
-          data={events}
+          data={groups}
           contentContainerStyle={styles.listContainer}
           renderItem={({ item, index }) => (
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Group", {id: 1})
+                navigation.navigate("Group", {groupID: 1})
               }}>
               <Image source={item} key={index} style={styles.image} />
             </TouchableOpacity>
@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EventList
+export default GroupList

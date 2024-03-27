@@ -1,6 +1,7 @@
 import { React, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { fetchWithTimeout, getCurrentUserID } from '../../Utils';
 
 const styles = StyleSheet.create({
     baseContainer: {
@@ -14,9 +15,29 @@ const GroupView = ({route}) => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    navigation.setOptions({
-      title: "hi"
-    })
+
+    var name
+    
+    fetchWithTimeout(
+      `${process.env.EXPO_PUBLIC_API_URL}/groups/fetch/${route.params.groupID}`,
+    ).then(
+      (res) => {
+        if (!res.ok) {
+          console.log(res.status)
+          throw "could not fetch group"
+        } 
+        return res.json()
+      }
+    ).then(
+      (data) => {
+        name = data.title
+        navigation.setOptions({
+          title: name
+        })
+      }
+    )
+
+    
   }, [])
   
   // console.log(route)

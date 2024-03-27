@@ -117,7 +117,7 @@ const Login = () => {
 
   const correctLogin = () => {
     
-    fetchWithTimeout(`${process.env.EXPO_PUBLIC_API_URL}/auth/fetchUserData`, {headers: {}}).then(
+    fetchWithTimeout(`${process.env.EXPO_PUBLIC_API_URL}/auth/fetchUserData`).then(
       (res) => {
 
         if (!res.ok) {

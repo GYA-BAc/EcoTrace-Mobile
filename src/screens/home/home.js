@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import EventList from '../../components/groupList/groupList';
+import GroupList from '../../components/groupList/groupList';
 import PostList from '../../components/postList/postList';
 import BottomMenu from '../../components/bottomMenu/bottomMenu';
 
@@ -18,7 +18,7 @@ const HomeScreen = () => {
   // const navigation = useNavigation();
   return (
     <View style={styles.baseContainer}>
-      <EventList/>
+      <GroupList/>
 
       {/* <Button
         title="test"

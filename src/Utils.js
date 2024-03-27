@@ -1,4 +1,5 @@
 import { Animated } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export async function fetchWithTimeout(resource, options = {}) {
@@ -17,11 +18,20 @@ export async function fetchWithTimeout(resource, options = {}) {
 }
 
 
-export const startShake = (transformRef) => {
+export function startShake(transformRef) {
   Animated.sequence([
     Animated.timing(transformRef, { toValue: 10, duration: 100, useNativeDriver: true }),
     Animated.timing(transformRef, { toValue: -10, duration: 100, useNativeDriver: true }),
     Animated.timing(transformRef, { toValue: 10, duration: 100, useNativeDriver: true }),
     Animated.timing(transformRef, { toValue: 0, duration: 100, useNativeDriver: true })
   ]).start();
+}
+
+
+export async function getCurrentUserID() {
+  try {
+    return await AsyncStorage.getItem('currentUserID')
+  } catch (error) {
+    console.log(error)
+  }
 }
