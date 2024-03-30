@@ -3,49 +3,49 @@ import { StyleSheet, FlatList, Image, Platform, Pressable } from 'react-native';
 
 import Post from './post';
 
-const PostList = () => {
-  const [posts] = useState([
-    {
-      author: {
-        picture: require('../../../assets/favicon.png'),
-        name: "test"
-      },
-      message: {
-        image: require('../../../assets/favicon.png'),
-        text: "test message content1"
-      }
-    },
-    {
-      author: {
-        picture: require('../../../assets/favicon.png'),
-        name: "test"
-      },
-      message: {
-        image: require('../../../assets/favicon.png'),
-        text: "test message content"
-      }
-    },
-    {
-      author: {
-        picture: require('../../../assets/favicon.png'),
-        name: "test"
-      },
-      message: {
-        image: null,
-        text: "test message content"
-      }
-    },
-    {
-      author: {
-        picture: require('../../../assets/favicon.png'),
-        name: "test"
-      },
-      message: {
-        image: require('../../../assets/favicon.png'),
-        text: null
-      }
-    }
-  ]);
+const PostList = ({posts}) => {
+  // const [posts] = useState([
+  //   {
+  //     author: {
+  //       picture: require('../../../assets/favicon.png'),
+  //       name: "test"
+  //     },
+  //     message: {
+  //       image: require('../../../assets/favicon.png'),
+  //       text: "test message content1"
+  //     }
+  //   },
+  //   {
+  //     author: {
+  //       picture: require('../../../assets/favicon.png'),
+  //       name: "test"
+  //     },
+  //     message: {
+  //       image: require('../../../assets/favicon.png'),
+  //       text: "test message content"
+  //     }
+  //   },
+  //   {
+  //     author: {
+  //       picture: require('../../../assets/favicon.png'),
+  //       name: "test"
+  //     },
+  //     message: {
+  //       image: null,
+  //       text: "test message content"
+  //     }
+  //   },
+  //   {
+  //     author: {
+  //       picture: require('../../../assets/favicon.png'),
+  //       name: "test"
+  //     },
+  //     message: {
+  //       image: require('../../../assets/favicon.png'),
+  //       text: null
+  //     }
+  //   }
+  // ]);
 
   return (
     
