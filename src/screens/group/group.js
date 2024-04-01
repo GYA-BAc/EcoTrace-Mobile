@@ -14,26 +14,34 @@ const styles = StyleSheet.create({
 });
 
 
+const SAVED = 3
+
+
 const GroupView = ({route}) => {
   const navigation = useNavigation();
 
   const groupID = route.params.groupID
 
-  var [state, setState] = useState(null)
+  var [posts, setPosts] = useState(null)
 
   // try loading from localstorage
-  useEffect(() => {
-    AsyncStorage.getItem(`G${groupID}`).then(
-      (val) => {
-        setState(val)
-      }
-    ).catch(
-      () => {
-        console.log("Error retrieving from local storage")
-        setState(null)
-      }
-    )
-  }, [])
+  // useEffect(() => {
+  //   AsyncStorage.getItem(`G${groupID}`).then(
+  //     (val) => {
+  //       setState(val)
+  //     }
+  //   ).catch(
+  //     () => {
+  //       console.log("Error retrieving from local storage")
+  //       setState(null)
+  //     }
+  //   )
+
+  //   var upToDate = false
+
+  //   if (val === null) return
+    
+  // }, [])
 
   useEffect(() => {
 
@@ -64,9 +72,36 @@ const GroupView = ({route}) => {
   }, [])
   // console.log(route)
 
+  useEffect(() => {
+
+    var start_id = null 
+    
+    fetchWithTimeout(
+      `${process.env.EXPO_PUBLIC_API_URL}/groups/fetchLatestPostID/${groupID}`
+    ).then(
+      (data) => {
+        start_id = data.id
+      }
+    )
+
+    if (start_id === null) {
+      throw "could not fetch latest post id"
+    }
+
+    fetchWithTimeout(
+      `${process.env.EXPO_PUBLIC_API_URL}/groups/fetchPostRange/${groupID}?`
+      + new URLSearchParams({start_id: start_id, requested_posts: 15})
+      ,
+    ).then(
+      (data) => {
+        setPosts(data)
+      }
+    )
+  })
+
   return (
     <View style={styles.baseContainer}>
-      <PostList posts={[]}/>
+      <PostList posts={data}/>
     </View>
   );
 }
