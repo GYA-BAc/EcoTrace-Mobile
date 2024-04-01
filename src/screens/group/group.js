@@ -101,7 +101,12 @@ const GroupView = ({route}) => {
 
   return (
     <View style={styles.baseContainer}>
-      <PostList posts={data}/>
+      <PostList posts={
+        posts.map((post) => {
+          return {
+          }
+        })
+      }/>
     </View>
   );
 }
