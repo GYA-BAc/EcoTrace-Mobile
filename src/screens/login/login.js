@@ -172,7 +172,8 @@ const Login = () => {
       }
     ).catch(
       // failed to login due to timeout
-      () => {
+      (e) => {
+        console.log(e)
         alert("Could not connect to our servers. Check your internet connection")
       }
     )

@@ -3,18 +3,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export async function fetchWithTimeout(resource, options = {}) {
-    const { timeout = 8000 } = options;
-    
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), timeout);
+  const { timeout = 8000 } = options;
   
-    const response = await fetch(resource, {
-      ...options,
-      signal: controller.signal  
-    });
-    clearTimeout(id);
-  
-    return response;
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
+  const response = await fetch(resource, {
+    ...options,
+    signal: controller.signal,
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
+      ...options.headers,
+      'ngrok-skip-browser-warning': true
+    }
+  });
+  clearTimeout(id);
+
+  return response;
 }
 
 
