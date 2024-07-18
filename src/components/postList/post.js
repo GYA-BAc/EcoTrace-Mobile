@@ -9,21 +9,21 @@ const Post = ({content}) => {
     <View style={styles.parent}>
 
       <View style={styles.userInfo}>
-          <Image source={content.author.picture} style={styles.userInfo.picture}/>
-          <Text style={styles.userInfo.name}>{content.author.name}</Text>
+          {/* <Image source={content.author.picture} style={styles.userInfo.picture}/> */}
+          <Text style={styles.userInfo.name}>{content.username}</Text>
           {/*TODO: add caption*/} 
       </View>
 
       <View style={styles.messageContent}>
 
-        {(content.message.image !== null) ?
+        {(content.data_url !== null) ?
         <View style={styles.messageContent.imageView}>
-          <Image source={content.message.image} style={styles.messageContent.imageView.image}/>
+          <Image source={content.data_url} style={styles.messageContent.imageView.image}/>
         </View>
         :<></>}
 
-        {(content.message.text !== null) ?
-        <Text style={styles.messageContent.text}>{content.message.text}</Text>
+        {(content.body !== null) ?
+        <Text style={styles.messageContent.text}>{content.body}</Text>
         :<></>}
       </View>
 
