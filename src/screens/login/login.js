@@ -78,20 +78,15 @@ const Login = () => {
     //   res => res.json()
     // )
 
-    // fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/logout`).then(
-    //   (res) => {
-    //     if (!res.ok) {
-    //       console.log(res.status)
-    //       return
-    //     }
-    //     return res.json()
-    //   }
-    // ).then(
-    //   data => {
-    //     setData(data)
-    //     console.log(data)
-    //   }
-    // )
+    fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/logout`).then(
+      (res) => {
+        if (!res.ok) {
+          console.log(res.status)
+          return
+        }
+        console.log(res.json())
+      }
+    )
 
 
     // fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/fetchUserData`).then(
@@ -159,15 +154,15 @@ const Login = () => {
     // usernameInput.current.clear()
     fetchWithTimeout(`${process.env.EXPO_PUBLIC_API_URL}/auth/login`, {
       method: "POST",
-      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}, 
+      headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'}, 
       body: JSON.stringify({'username': username, 'password': password}),
-      timeout: 3000
+      timeout: 10000
     }).then(
       (res) => {
         (res.ok) ? correctLogin(): incorrectLogin()
-        // console.log(res.status)
+        console.log(res)
           
-        // console.log(res.headers)
+        console.log(res.headers)
         // return res.json()
       }
     ).catch(
