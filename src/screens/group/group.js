@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { fetchWithTimeout, getCurrentUserID } from '../../Utils';
+import { fetchWithTimeout, getCurrentUserID, asyncFetchPosts } from '../../Utils';
 import PostList from '../../components/postList/postList';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -21,8 +21,9 @@ const GroupView = ({route}) => {
   const navigation = useNavigation();
 
   const groupID = route.params.groupID
+  // console.log(groupID)
 
-  var [posts, setPosts] = useState(null)
+  var [posts, setPosts] = useState([])
 
   // try loading from localstorage
   // useEffect(() => {
@@ -56,7 +57,7 @@ const GroupView = ({route}) => {
     ).then(
       (res) => {
         if (!res.ok) {
-          console.log(res.status)
+          // console.log(res.status)
           throw "could not fetch group"
         } 
         return res.json()
@@ -79,34 +80,53 @@ const GroupView = ({route}) => {
     fetchWithTimeout(
       `${process.env.EXPO_PUBLIC_API_URL}/groups/fetchLatestPostID/${groupID}`
     ).then(
-      (data) => {
-        start_id = data.id
+      (res) => {
+
+        if (!res.ok) {
+          // TODO: add bad case where server fails
+          // console.log(res.status)
+          throw "ServerError"
+        }
+        return res.json()
       }
-    )
-
-    if (start_id === null) {
-      throw "could not fetch latest post id"
-    }
-
-    fetchWithTimeout(
-      `${process.env.EXPO_PUBLIC_API_URL}/groups/fetchPostRange/${groupID}?`
-      + new URLSearchParams({start_id: start_id, requested_posts: 15})
-      ,
     ).then(
       (data) => {
-        setPosts(data)
+        // console.log(data)
+        start_id = data.id
+
+        if (start_id === null) {
+          throw "could not fetch latest post id"
+        }
+        return start_id
+      }
+    ).then(
+      (start_id) => {
+        fetchWithTimeout(
+          `${process.env.EXPO_PUBLIC_API_URL}/groups/fetchPostRange/${groupID}?`
+          + new URLSearchParams({start_id: start_id, requested_posts: 15})
+        ).then(
+          (res) => {
+    
+            if (!res.ok) {
+              // TODO: add bad case where server fails
+              throw "ServerError"
+            }
+            return res.json()
+          }
+        ).then(
+          async (data) => {
+            setPosts(await asyncFetchPosts(data.map((item) => {return item.id})))
+            console.log(posts)
+          }
+        )
       }
     )
-  })
+    
+  }, [])
 
   return (
     <View style={styles.baseContainer}>
-      <PostList posts={
-        posts.map((post) => {
-          return {
-          }
-        })
-      }/>
+      <PostList posts={posts}/>
     </View>
   );
 }
