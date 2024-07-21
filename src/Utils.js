@@ -15,6 +15,7 @@ export async function fetchWithTimeout(resource, options = {}) {
     credentials: 'include',
     headers: {
       ...options.headers,
+      'Accept': 'text/plain', 'Content-Type': 'text/plain', 
       'ngrok-skip-browser-warning': true
     }
   });
