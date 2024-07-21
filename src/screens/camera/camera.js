@@ -1,6 +1,6 @@
 import { React, useState, useEffect} from 'react';
 import { StyleSheet, View, Dimensions, Platform} from 'react-native';
-import { Camera, CameraType} from 'expo-camera';
+import { CameraView, Camera } from 'expo-camera';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -51,36 +51,42 @@ const CameraScreen = () => {
   const prepareRatio = async () => {
     let desiredRatio = '4:3';  // Start with the system default
     if (Platform.OS === 'android') {
-      setTimeout(async () => {}, 0) // for some reason, needed to make next line work
-      const ratios = await camera.getSupportedRatiosAsync();
+      setTimeout(async () => {}, 10) // for some reason, needed to make next line work
+      
 
-      // find the ratio that is closest to the screen ratio without going over
-      let distances = {};
-      let realRatios = {};
-      let minDistance = null;
-      for (const ratio of ratios) {
-        const parts = ratio.split(':');
-        const realRatio = parseInt(parts[0]) / parseInt(parts[1]);
-        realRatios[ratio] = realRatio;
-        const distance = screenRatio - realRatio; 
-        distances[ratio] = distance;
-        if (minDistance == null) {
-          minDistance = ratio;
-        } else {
-          if (distance >= 0 && distance < distances[minDistance]) {
-            minDistance = ratio;
+      camera.getAvailablePictureSizesAsync().then(
+        (ratios) => {
+
+          // find the ratio that is closest to the screen ratio without going over
+          let distances = {};
+          let realRatios = {};
+          let minDistance = null;
+          for (const ratio of ratios) {
+            const parts = ratio.split(':');
+            const realRatio = parseInt(parts[0]) / parseInt(parts[1]);
+            realRatios[ratio] = realRatio;
+            const distance = screenRatio - realRatio; 
+            distances[ratio] = distance;
+            if (minDistance == null) {
+              minDistance = ratio;
+            } else {
+              if (distance >= 0 && distance < distances[minDistance]) {
+                minDistance = ratio;
+              }
+            }
           }
+          // set the best match
+          desiredRatio = minDistance;
+          //  calculate the difference between the camera width and the screen height
+          const remainder = Math.floor(
+            (height - realRatios[desiredRatio] * width) / 2
+          );
+
+          setImagePadding(remainder);
+          setRatio(desiredRatio);
+          setIsRatioSet(true);
         }
-      }
-      // set the best match
-      desiredRatio = minDistance;
-      //  calculate the difference between the camera width and the screen height
-      const remainder = Math.floor(
-        (height - realRatios[desiredRatio] * width) / 2
-      );
-      setImagePadding(remainder);
-      setRatio(desiredRatio);
-      setIsRatioSet(true);
+      )
     }
   };
 
@@ -95,22 +101,19 @@ const CameraScreen = () => {
     <View style={styles.baseContainer}>
       {
         startCamera ? (
-          <Camera
+          <CameraView
             style={
               (isRatioSet ?
-              [styles.cameraPreview, {marginTop: imagePadding, marginBottom: imagePadding}]
+              [styles.cameraPreview, imagePadding ? {marginTop: imagePadding, marginBottom: imagePadding}:{}]
               :
               styles.cameraInactive
               )
             }
-            type={CameraType.back}
             onCameraReady={setCameraReady}
             ratio={ratio}
-            ref={(ref) => {
-              setCamera(ref);
-            }}
+            ref={setCamera}
           > 
-          </Camera>
+          </CameraView>
         ) : (
           <></>
         )
