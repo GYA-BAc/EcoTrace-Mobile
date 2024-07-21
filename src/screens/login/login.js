@@ -78,13 +78,17 @@ const Login = () => {
     //   res => res.json()
     // )
 
-    fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/logout`).then(
+    fetchWithTimeout(`${process.env.EXPO_PUBLIC_API_URL}/auth/logout`).then(
       (res) => {
         if (!res.ok) {
           console.log(res.status)
           return
         }
-        console.log(res.json())
+        return res.json()
+      }
+    ).then(
+      (data) => {
+        console.log(data)
       }
     )
 
@@ -156,7 +160,7 @@ const Login = () => {
       method: "POST",
       headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'}, 
       body: JSON.stringify({'username': username, 'password': password}),
-      timeout: 10000
+      timeout: 5000
     }).then(
       (res) => {
         (res.ok) ? correctLogin(): incorrectLogin()
