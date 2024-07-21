@@ -1,17 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, FlatList, Image, Platform, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { fetchWithTimeout, asyncFetchGroups } from '../../Utils';
 
 
 const GroupList = () => {
-  const [groups] = useState([
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-    require('../../../assets/favicon.png'),
-  ]);
+
+  const [groups, setGroups] = useState([]);
+
+  useEffect(
+    ()=>{
+      fetchWithTimeout(`${process.env.EXPO_PUBLIC_API_URL}/groups/fetchUserGroups`).then(
+        (res) => {
+          if (!res.ok) {
+            return
+          }
+          return res.json()
+        }
+      ).then(
+        async (data) => {
+          setGroups(await asyncFetchGroups(data.map((item) => {return item.group_id})))
+        }
+      )
+    },[])
+
+  
 
   const navigation = useNavigation()
 
@@ -25,9 +38,9 @@ const GroupList = () => {
           renderItem={({ item, index }) => (
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Group", {groupID: 1})
+                navigation.navigate("Group", {groupID: item.id})
               }}>
-              <Image source={item} key={index} style={styles.image} />
+              <Image source={require('../../../assets/favicon.png')} key={index} style={styles.image} />
             </TouchableOpacity>
           )}
         />
