@@ -18,7 +18,7 @@ const Post = ({content}) => {
 
         {(content.data_url !== null) ?
         <View style={styles.messageContent.imageView}>
-          <Image source={content.data_url} style={styles.messageContent.imageView.image}/>
+          <Image src={content.data_url} style={styles.messageContent.imageView.image}/>
         </View>
         :<></>}
 
