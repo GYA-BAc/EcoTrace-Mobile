@@ -46,6 +46,28 @@ export async function asyncFetchPosts(posts) {
   )
 }
 
+export async function asyncFetchGroups(posts) {
+  
+  return Promise.all(
+      posts.map(async (id) => {
+        let tmp = await fetch(
+          `${process.env.EXPO_PUBLIC_API_URL}/groups/fetch/${id}`,
+          {
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+              'ngrok-skip-browser-warning': true
+            }
+          }
+        )
+        return tmp.json()
+      })
+  ).then(
+    (ret) => {
+      return ret
+    }
+  )
+}
 
 export function startShake(transformRef) {
   Animated.sequence([
